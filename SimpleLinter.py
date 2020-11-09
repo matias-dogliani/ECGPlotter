@@ -2,7 +2,6 @@ brackets = {')':'(', ']':'[', '}':'{'}
 acum = [] 
 
 inp = input() 
-
 #Guardo todos los que abren en la pila 
 for i in inp: 
     if i in brackets.values():
