@@ -21,6 +21,10 @@ print(data)
 TimeAxe = data['tiempo']
 SignalAxe = data['señal']
 
-plt.figure('ECG')
-plt.plot(TimeAxe,SignalAxe)
+plt.plot(TimeAxe,SignalAxe,'g')
+plt.title('ECG')
+
+
+
+plt.savefig('ECGSignal',dpi=300)
 plt.show()
