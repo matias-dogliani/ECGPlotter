@@ -13,9 +13,14 @@ ECG Processing - Dogliani Matias, Toth Lautaro.
 
 
 import pandas as pd
-import numpy as np
+import matplotlib.pyplot as plt
 
+data = pd.read_excel('electrocardiograma.xlsx')
 
-
-data = read_excel('electrocardiograma.xlsx')
 print(data)
+TimeAxe = data['tiempo']
+SignalAxe = data['señal']
+
+plt.figure('ECG')
+plt.plot(TimeAxe,SignalAxe)
+plt.show()
