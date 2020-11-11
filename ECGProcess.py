@@ -13,6 +13,7 @@ ECG Processing - Dogliani Matias, Toth Lautaro.
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.offsetbox import AnchoredText
 from scipy.signal import find_peaks
 
 data = pd.read_excel('electrocardiograma.xlsx')
@@ -29,14 +30,15 @@ picos,_ = find_peaks(SignalAxe, height=0.5, width = 10)
 
 T = TimeAxe[picos[1]] -TimeAxe[picos[0]]
 freq = (1/T) * 60
-lpm = str(freq) + 'bpm'
+lpm = 'Bpm = ' + str(round(freq, 2))
 
+plt.text(0.25,max(SignalAxe),
+     lpm, ha="center", va="center", size=15,
+    bbox=dict(boxstyle="round", fc="w", ec="0.5", alpha=0.9))
 
 plt.plot(TimeAxe,SignalAxe,'g')
 plt.plot(TimeAxe[picos], SignalAxe[picos],'o', color = 'red')
 plt.grid()
-texto1 = plt.text(0.5,max(SignalAxe), lpm, fontsize=20)
-
 plt.title('ECG')
 plt.savefig('ECGSignal',dpi=300)
 plt.show()
