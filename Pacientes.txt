@@ -1,0 +1,4 @@
+Edad: 23
+Peso: 89
+Sexo: M
+Estado: Reposo

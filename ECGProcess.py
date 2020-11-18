@@ -5,7 +5,7 @@ ECG Processing - Dogliani Matias, Toth Lautaro.
 *Calcular los picos de la frecuencia cardiaca (signal.find_peaks)
 *Calcular la frecuencia cardiaca bpm
 *Determinar si dormia, reposaba o hacia actividad física
-*Pedir sexo, edad
+*Pedir sexo, Edad
 *Almacenar resultado en un archivo de texto.txt
 
 '''
@@ -37,7 +37,7 @@ while(Edad <= 0):
 
 while(Peso <= 0):
     try:
-        Peso = int(input('Ingreso el peso del paciente (Kg): '))
+        Peso = int(input('Ingreso el Peso del paciente (Kg): '))
     except:
         Peso = 0
     if Peso <= 0 or Peso >= 500:
@@ -54,10 +54,6 @@ while Sexo[0] != 'M' and  Sexo[0] != 'F':
 
 #Calculo de frecuencia maxima  y clasificaicon de estados
 
-#hombre 	[(210 - (0,5 * edad en años)) - (0,01 * peso en kg) + 4]
-#mujer 	[(210 - (0,5 * edad en años)) - (0,01 * peso en kg)]
-#La frecuencia cardíaca en reposo depende de factores genéticos, del estado físico, del estado psicológico, de las condiciones ambientales, de la postura, de la edad y del sexo. Se toma generalmente con la persona en reposo: sentada, o acostada. En un adulto sano, en reposo, el pulso suele hallarse en el rango de los 60-100 latidos por minuto. Durante el ejercicio físico el rango puede aumentar a 150-200 latidos por minuto y durante el sueño puede bajar de 60 latidos por minuto.
-
 data = pd.read_excel('electrocardiograma.xlsx')
 TimeAxe = data['tiempo']
 SignalAxe = data['señal']
@@ -71,10 +67,39 @@ picos,_ = find_peaks(SignalAxe, height=0.5, width = 10)
 
 T = TimeAxe[picos[1]] -TimeAxe[picos[0]]
 freq = (1/T) * 60
-lpm = 'Bpm = ' + str(round(freq, 2))
+texto = 'Bpm = ' + str(round(freq, 2)) + '\n Estado: '
+FreqReposo = 80  #Promedio segun Wikipedia
+
+
+if Sexo[0] == 'M':
+    FreqMax = (210 - (0.5*Edad)) - (0.01*Peso) +4
+else:
+    FreqMax= (210 - (0.5*Edad)) - (0.01*Peso)
+
+
+#Me fijo de cual esta mas cerca para definir el estado.
+if abs(freq - FreqReposo) < abs(freq - FreqMax*0.7):
+    estado = 'Reposo'
+else:
+    estado = 'Ejercitando'
+
+texto += estado
+
+
+#Guardo informacion del paciente
+
+Paciente = 'Edad: ' + str(Edad) + '\n'
+Paciente += 'Peso: ' + str(Peso) + '\n'
+Paciente += 'Sexo: ' + Sexo[0] + '\n'
+Paciente += 'Estado: ' + estado +  '\n'
+
+fd = open('Pacientes.txt', 'a')
+fd.write(Paciente)
+
+fd.close()
 
 plt.text(0.25,max(SignalAxe),
-     lpm, ha="center", va="center", size=15,
+     texto, ha="center", va="center", size=15,
     bbox=dict(boxstyle="round", fc="w", ec="0.5", alpha=0.9))
 
 plt.plot(TimeAxe,SignalAxe,'g')
