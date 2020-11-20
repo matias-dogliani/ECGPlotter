@@ -1,4 +1,5 @@
+Nombre: Matias Dogliani
 Edad: 23
-Peso: 89
+Peso: 80
 Sexo: M
-Estado: Reposo
+Estado: Durmiendo
