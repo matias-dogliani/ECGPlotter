@@ -29,7 +29,7 @@ y corchetes
 Implementación básica del Juego de la Vida de Conway 
 
  Pendiente: 
- [] Agregar patrones random 
- [] Cambiar estado de celdas con mouse 
+ * [] Agregar patrones random 
+ * [] Cambiar estado de celdas con mouse 
 
 
