@@ -24,4 +24,12 @@ y corchetes
 
 * Buscar y contador de palabras en una noticia con formato 'txt' 
 
+## Juego de la vida 
+
+Implementación básica del Juego de la Vida de Conway 
+
+ Pendiente: 
+ [] Agregar patrones random 
+ [] Cambiar estado de celdas con mouse 
+
 
